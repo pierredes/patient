@@ -4,6 +4,10 @@ import com.example.patient.entities.PatientEntity;
 import com.example.patient.entities.VilleEntity;
 import com.example.patient.repositories.PatientRepository;
 import com.example.patient.repositories.VilleRepository;
+import com.example.patient.services.PatientService;
+import com.example.patient.services.VilleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,20 +25,20 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @RequestMapping("/patient")
 public class PatientController {
 
-    private final PatientRepository pr;
-    private final VilleRepository vr;
+    private final PatientService ps;
+    private final VilleService vs;
 
-    public PatientController(PatientRepository pr, VilleRepository vr) {
-        this.pr = pr;
-        this.vr = vr;
+    public PatientController(PatientService ps, VilleService vs) {
+        this.ps = ps;
+        this.vs = vs;
     }
 
     // Get all
     @GetMapping("/list")
     public String getAllPatient(Model model) {
         model.addAttribute("message", "Voila la lite des patient");
-        List<PatientEntity> lp = (List<PatientEntity>) pr.findAll();
-        List<VilleEntity> lv = (List<VilleEntity>) vr.findAll();
+        List<PatientEntity> lp = ps.getAllPatient();
+        List<VilleEntity> lv = vs.getAllVille();
         model.addAttribute("lv", lv);
         model.addAttribute("lp", lp);
 
@@ -45,7 +49,7 @@ public class PatientController {
     @GetMapping("/add")
     public String addGet(Model model) {
         model.addAttribute("message", "Ajouter un patient");
-        List<VilleEntity> lv = (List<VilleEntity>) vr.findAll();
+        List<VilleEntity> lv = vs.getAllVille();
         model.addAttribute("lv", lv);
         return "patient/add_edit";
     }
@@ -59,19 +63,7 @@ public class PatientController {
         String telephone = request.getParameter("telephone");
         String ville = request.getParameter("ville");
 
-        try {
-            PatientEntity p = new PatientEntity();
-            p.setNom(nom);
-            p.setPrenom(prenom);
-            p.setEmail(email);
-            p.setTelephone(telephone);
-            VilleEntity villeP = new VilleEntity();
-            villeP.setId(Integer.parseInt(ville));
-            p.setVille(villeP);
-            pr.save(p);
-        } catch (Exception e){
-
-        }
+        ps.addPatient(nom, prenom, email, telephone, ville);
         return "redirect:/patient/list";
     }
 
@@ -84,19 +76,8 @@ public class PatientController {
         String email = request.getParameter("email");
         String telephone = request.getParameter("telephone");
         String ville = request.getParameter("ville");
-        try {
-            PatientEntity p = new PatientEntity();
-            p.setNom(nom);
-            p.setPrenom(prenom);
-            p.setEmail(email);
-            p.setTelephone(telephone);
-            VilleEntity villeP = new VilleEntity();
-            villeP.setId(Integer.parseInt(ville));
-            p.setVille(villeP);
-            pr.save(p);
-        } catch (Exception e){
-            System.out.println("erreur" + e);
-        }
+
+        ps.addPatient(nom, prenom, email, telephone, ville);
             return "/patient/list";
         }
 
@@ -105,15 +86,15 @@ public class PatientController {
     @GetMapping("/edit/{id}")
     public String getEditPatient(@PathVariable(name = "id") String id, Model model) {
         model.addAttribute("message", "Modifier un patient");
-        Optional<PatientEntity> p = pr.findById(Integer.parseInt(id));
-        List<VilleEntity> lv = (List<VilleEntity>) vr.findAll();
+        Optional<PatientEntity> p = ps.getPatientById(id);
+        List<VilleEntity> lv = vs.getAllVille();
         if (p.get().getVille() == null) {
             model.addAttribute("patient", p.get());
             model.addAttribute("lv", lv);
         }
         else {
-            Optional<VilleEntity> v = vr.findById(p.get().getVille().getId());
-            List<VilleEntity> lv2 = (List<VilleEntity>) vr.findAll();
+            Optional<VilleEntity> v = vs.getVilleById(Integer.toString(p.get().getVille().getId()));
+            List<VilleEntity> lv2 = vs.getAllVille();
             for (VilleEntity test : lv) {
                 model.addAttribute("patient", p.get());
                 if (test.getId() == v.get().getId()) {
@@ -135,24 +116,13 @@ public class PatientController {
         String telephone = request.getParameter("telephone");
         String ville = request.getParameter("ville");
 
-        try {
-            Optional<PatientEntity> p = pr.findById(Integer.parseInt(id));
-            p.get().setNom(nom);
-            p.get().setPrenom(prenom);
-            p.get().setEmail(email);
-            p.get().setTelephone(telephone);
-            VilleEntity villeP = new VilleEntity();
-            villeP.setId(Integer.parseInt(ville));
-            p.get().setVille(villeP);
-            pr.save(p.get());
-        } catch (Exception e){
 
-        }
+        ps.updatePatient(id, nom, prenom, email, telephone, ville);
         return "redirect:/patient/list";
     }
 
 
-    @RequestMapping("/updatePatientModal/{id}")
+    /*@RequestMapping("/updatePatientModal/{id}")
     public String updatePatientModal(@PathVariable(name = "id") String id, Model model, HttpServletRequest request) {
         model.addAttribute("message", "Ajouter un patient");
 
@@ -175,17 +145,12 @@ public class PatientController {
 
         }
         return "/patient/list";
-    }
+    }*/
 
     // delete data
     @GetMapping("/delete/{id}")
     public String deletePatient(@PathVariable(name = "id") String id, Model model) {
-        Optional<PatientEntity> p = pr.findById(Integer.parseInt(id));
-        try {
-            pr.delete(p.get());
-        } catch (Exception e) {
-            System.out.println("Erreur" + e);
-        }
+        ps.deletePatient(id);
 
         return "redirect:/patient/list";
     }

@@ -15,8 +15,12 @@
             <input type="email" th:value="${user?.email}" class="form-control" name="email" id="email" placeholder="Entrez votre adresse mail" aria-label="Entrez votre adresse mail">
         </div>
         <div class="col-12">
-            <label for="role" class="form-label">Roles :</label>
-            <input type="text" th:value="${user?.roles}" class="form-control" name="role" id="role" placeholder="Entrez votre role" aria-label="Entrez votre role">
+            <label for="role" class="form-label">Ville</label>
+            <select name="role"  id="role" class="form-select" aria-label="Default select example">
+                <option th:value="${user?.id}" th:text="${user?.roles}"></option>
+                <option>ROLE_ADMIN</option>
+                <option>ROLE_USER</option>
+            </select>
         </div>
         <div class="col-12" th:unless="${user?.password}">
             <label for="password" class="form-label">Mot de passe</label>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -27,7 +27,7 @@
                     <a class="nav-link" href="/ville/list">Villes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/user/list">Utilisateurs</a>
+                    <a class="nav-link" href="/user/list" sec:authorize="hasRole('ROLE_ADMIN')">Utilisateurs</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
