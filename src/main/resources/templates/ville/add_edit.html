@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" >
+<head th:replace="/layout/head :: head"></head>
+<body>
+<header th:insert="~{/layout/header :: header}"></header>
+<div class="container">
+  <h1 th:text="${message}"> </h1>
+  <form action="" method="post">
+      <div class="col">
+        <label for="nom_ville" class="form-label">Nom de la ville :</label>
+        <input type="text" th:value="${ville?.nom}" class="form-control" name="nom" id="nom_ville" placeholder="Entrez votre nom de ville" aria-label="Entrez votre nom de ville">
+      </div>
+      <div class="col">
+        <label for="cp" class="form-label">Code postal :</label>
+        <input type="text" th:value="${ville?.codePostal}" class="form-control" name="cp" id="cp" placeholder="Entrez votre code postal" aria-label="Entrez votre code postal">
+      </div>
+
+
+    <div class="col-2">
+      <button type="submit" class="btn btn-primary" id="envoyer_add_edit">Envoyer</button>
+    </div>
+  </form>
+
+</div>
+
+<footer th:insert="~{/layout/footer :: footer}"></footer>
+</body>
+
+</html>

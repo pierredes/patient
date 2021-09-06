@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" >
+<head th:replace="/layout/head :: head"></head>
+<body >
+<header th:insert="~{/layout/header :: header}"></header>
+
+
+<div class="container">
+  <div class="row" id="titre_listeVille">
+    <div class="col">
+      <h1 th:text="${message}"></h1>
+    </div>
+    <div class="col">
+      <button type="button" class="btn btn-primary" id="link_to_addPatient"><a href="/ville/add" class="lien_btn">Ajouter une ville</a></button>
+
+    </div>
+  </div>
+
+
+  <!-- ajout patient Modal-->
+  <!--<div class="modal fade" id="addPatientForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ajouter un patient</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/patient/add"  th:object="${lv}" method="post">
+            <div class="row">
+              <div class="col">
+                <label for="nom" class="form-label">Nom :</label>
+                <input type="text" th:value="${patient?.nom}" class="form-control" name="nom" id="nom" placeholder="Entrez votre nom de famille" aria-label="Entrez votre nom de famille">
+              </div>
+              <div class="col">
+                <label for="prenom" class="form-label">Prénom :</label>
+                <input type="text" th:value="${patient?.prenom}" class="form-control" name="prenom" id="prenom" placeholder="Entrez votre prénom" aria-label="Entrez votre prénom">
+              </div>
+            </div>
+            <div class="col-12">
+              <label for="email" class="form-label">Email :</label>
+              <input type="email" th:value="${patient?.email}" class="form-control" name="email" id="email" placeholder="Entrez votre email" aria-label="Entrez votre email">
+            </div>
+            <div class="col-12">
+              <label for="telephone" class="form-label">Téléphone</label>
+              <input type="text" th:value="${patient?.telephone}" class="form-control" name="telephone" id="telephone" placeholder="Entrez votre numéro de téléphone" aria-label="Entrez votre numéro de téléphone">
+            </div>
+            <div class="col-12">
+              <label for="ville" class="form-label">Ville</label>
+              <select name="ville"  id="ville" class="form-select" aria-label="Default select example">
+                <option th:value="${ville1?.id}" th:text="${ville1?.nom}" value="Veuillez séléctionnez votre ville"></option>
+                <option th:each="ville: ${lv}"  th:value="${ville.id}"  th:text="${ville.nom}"></option>
+              </select>
+            </div>
+            <div class="col-2">
+              <button type="submit" class="btn btn-primary" id="envoyer_add_edit">Envoyer</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>-->
+
+  <!-- Update Patient Modal (marche pas)-->
+  <!--<div class="modal fade" id="updatePatientForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modifier un patient</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" >
+          <form action="/patient/edit/${patient.id}" th:object="${lv}" method="post">
+            <div class="row">
+              <div class="col">
+                <label for="nom" class="form-label">Nom :</label>
+                <input type="text" th:value="${patient?.nom}" class="form-control" name="nom" id="nom" placeholder="Entrez votre nom de famille" aria-label="Entrez votre nom de famille">
+              </div>
+              <div class="col">
+                <label for="prenom" class="form-label">Prénom :</label>
+                <input type="text" th:value="${patient?.prenom}" class="form-control" name="prenom" id="prenom" placeholder="Entrez votre prénom" aria-label="Entrez votre prénom">
+              </div>
+            </div>
+            <div class="col-12">
+              <label for="email" class="form-label">Email :</label>
+              <input type="email" th:value="${patient?.email}" class="form-control" name="email" id="email" placeholder="Entrez votre email" aria-label="Entrez votre email">
+            </div>
+            <div class="col-12">
+              <label for="telephone" class="form-label">Téléphone</label>
+              <input type="text" th:value="${patient?.telephone}" class="form-control" name="telephone" id="telephone" placeholder="Entrez votre numéro de téléphone" aria-label="Entrez votre numéro de téléphone">
+            </div>
+            <div class="col-12">
+              <label for="ville" class="form-label">Ville</label>
+              <select name="ville"  id="ville" class="form-select" aria-label="Default select example">
+                <option th:value="${ville1?.id}" th:text="${ville1?.nom}" value="Veuillez séléctionnez votre ville"></option>
+                <option th:each="ville: ${lv}"  th:value="${ville.id}"  th:text="${ville.nom}"></option>
+              </select>
+            </div>
+            <div class="col-2">
+              <button type="submit" class="btn btn-primary" id="envoyer_add_edit">Envoyer</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>-->
+
+  <table class="table" th:each="ville: ${lv}">
+    <thead>
+    <tr>
+      <th scope="col" class="col-1">#</th>
+      <th scope="col" class="col-3">code postal </th>
+      <th scope="col" class="col-4">nom</th>
+      <th scope="col" class="col-4">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th scope="row"  th:utext="${ville.id}"></th>
+      <td th:utext="${ville.codePostal}"></td>
+      <td th:utext="${ville.nom}"></td>
+      <td>
+        <button class="btn btn-primary" id='update'>
+          <a th:href="@{/ville/edit/{id}(id=${ville.id})}" class="lien_btn">Update</a>
+        </button>
+
+        <!-- Bouton update modal-->
+        <!--<button type="button" class="btn btn-primary" id="updatePatientModal" data-bs-toggle="modal" data-bs-target="#updatePatientForm">
+          Update Modals
+        </button>-->
+
+        <button class="btn btn-danger" id="delete">
+          <a th:href="@{/ville/delete/{id}(id=${ville.id})}" class="lien_btn">Delete</a>
+        </button>
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>
+<footer th:insert="~{/layout/footer :: footer}"></footer>
+</body>
+
+</html>

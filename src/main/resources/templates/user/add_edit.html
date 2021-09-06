@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" >
+<head th:replace="/layout/head :: head"></head>
+<body>
+<header th:insert="~{/layout/header :: header}"></header>
+<div class="container">
+    <h1 th:text="${message}"> </h1>
+    <form action="" method="post">
+        <div class="col">
+            <label for="username" class="form-label">Username :</label>
+            <input type="text" th:value="${user?.username}" class="form-control" name="username" id="username" placeholder="Entrez votre pseudo" aria-label="Entrez votre pseudo">
+        </div>
+        <div class="col">
+            <label for="email" class="form-label">Email :</label>
+            <input type="email" th:value="${user?.email}" class="form-control" name="email" id="email" placeholder="Entrez votre adresse mail" aria-label="Entrez votre adresse mail">
+        </div>
+        <div class="col-12">
+            <label for="role" class="form-label">Roles :</label>
+            <input type="text" th:value="${user?.roles}" class="form-control" name="role" id="role" placeholder="Entrez votre role" aria-label="Entrez votre role">
+        </div>
+        <div class="col-12" th:unless="${user?.password}">
+            <label for="password" class="form-label">Mot de passe</label>
+            <input type="password" class="form-control" name="password" id="password" placeholder="Entrez votre mot de passe" aria-label="Entrez votre mot de passe">
+        </div>
+        <div class="col">
+            <label for="nom" class="form-label">nom :</label>
+            <input type="text" th:value="${user?.name}" class="form-control" name="nom" id="nom" placeholder="Entrez votre nom" aria-label="Entrez votre nom">
+        </div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-primary" id="envoyer_add_edit">Envoyer</button>
+        </div>
+    </form>
+
+</div>
+
+<footer th:insert="~{/layout/footer :: footer}"></footer>
+</body>
+
+</html>

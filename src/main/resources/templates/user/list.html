@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" >
+<head th:replace="/layout/head :: head"></head>
+<body >
+<header th:insert="~{/layout/header :: header}"></header>
+
+
+<div class="container">
+    <div class="row" id="titre_listePatient">
+        <div class="col">
+            <h1 th:text="${message}"></h1>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-primary" id="link_to_addPatient"><a href="/user/add" class="lien_btn">Ajouter un patient</a></button>
+
+        </div>
+    </div>
+
+
+    <table class="table" th:each="user: ${ul}">
+        <thead>
+        <tr>
+            <th scope="col" class="col-1">#</th>
+            <th scope="col" class="col-2">Username</th>
+            <th scope="col" class="col-3">Adresse mail</th>
+            <th scope="col" class="col-2">Nom</th>
+            <th scope="col" class="col-4">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row"  th:utext="${user.id}"></th>
+            <td th:utext="${user.username}"></td>
+            <td th:utext="${user.email}"></td>
+            <td th:utext="${user.name}"></td>
+            <td>
+                <button class="btn btn-primary" id='update'>
+                    <a th:href="@{/user/edit/{id}(id=${user.id})}" class="lien_btn">Update</a>
+                </button>
+
+                <button class="btn btn-danger" id="delete">
+                    <a th:href="@{/user/delete/{id}(id=${user.id})}" class="lien_btn">Delete</a>
+                </button>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+<footer th:insert="~{/layout/footer :: footer}"></footer>
+</body>
+
+</html>
