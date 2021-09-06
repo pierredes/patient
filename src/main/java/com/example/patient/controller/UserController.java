@@ -63,9 +63,10 @@ public class UserController {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String role = request.getParameter("role");
+        String password = request.getParameter("password");
         String nom = request.getParameter("nom");
 
-        us.updateUser(id, username, email, role, nom);
+        us.updateUser(id, username, email, role, password, nom);
         return "redirect:/user/list";
     }
 

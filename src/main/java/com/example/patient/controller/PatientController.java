@@ -84,7 +84,7 @@ public class PatientController {
 
     // get data for edit form
     @GetMapping("/edit/{id}")
-    public String getEditPatient(@PathVariable(name = "id") String id, Model model) {
+    public String getEditPatient(@PathVariable(name = "id") int id, Model model) {
         model.addAttribute("message", "Modifier un patient");
         Optional<PatientEntity> p = ps.getPatientById(id);
         List<VilleEntity> lv = vs.getAllVille();
@@ -95,10 +95,10 @@ public class PatientController {
         else {
             Optional<VilleEntity> v = vs.getVilleById(Integer.toString(p.get().getVille().getId()));
             List<VilleEntity> lv2 = vs.getAllVille();
-            for (VilleEntity test : lv) {
+            for (VilleEntity ville : lv) {
                 model.addAttribute("patient", p.get());
-                if (test.getId() == v.get().getId()) {
-                    lv2.remove(test);
+                if (ville.getId() == v.get().getId()) {
+                    lv2.remove(ville);
                     model.addAttribute("ville1", v.get());
                 }
                 model.addAttribute("lv", lv2);
@@ -109,7 +109,7 @@ public class PatientController {
 
     // post data for edit form
     @PostMapping("/edit/{id}")
-    public String postEditPatient(@PathVariable(name = "id") String id, HttpServletRequest request) {
+    public String postEditPatient(@PathVariable(name = "id") int id, HttpServletRequest request) {
         String nom = request.getParameter("nom");
         String prenom = request.getParameter("prenom");
         String email = request.getParameter("email");
@@ -149,7 +149,7 @@ public class PatientController {
 
     // delete data
     @GetMapping("/delete/{id}")
-    public String deletePatient(@PathVariable(name = "id") String id, Model model) {
+    public String deletePatient(@PathVariable(name = "id") int id, Model model) {
         ps.deletePatient(id);
 
         return "redirect:/patient/list";

@@ -22,9 +22,9 @@ public class PatientService {
 
     }
 
-    public Optional<PatientEntity> getPatientById( String id) {
+    public Optional<PatientEntity> getPatientById( int id) {
 
-        return pr.findById(Integer.parseInt(id));
+        return pr.findById(id);
     }
 
     public PatientEntity addPatient(String nom, String prenom, String email, String telephone, String ville ) {
@@ -45,9 +45,9 @@ public class PatientService {
         }
     }
 
-    public Optional<PatientEntity> updatePatient(String id, String nom, String prenom, String email, String telephone, String ville) {
+    public Optional<PatientEntity> updatePatient(int id, String nom, String prenom, String email, String telephone, String ville) {
         try {
-            Optional<PatientEntity> p = pr.findById(Integer.parseInt(id));
+            Optional<PatientEntity> p = pr.findById(id);
             p.get().setNom(nom);
             p.get().setPrenom(prenom);
             p.get().setEmail(email);
@@ -63,7 +63,7 @@ public class PatientService {
         }
     }
 
-    public void deletePatient(String id) {
+    public void deletePatient(int id) {
         Optional<PatientEntity> p = this.getPatientById(id);
         try {
             pr.delete(p.get());

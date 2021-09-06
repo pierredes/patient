@@ -15,14 +15,14 @@
             <input type="email" th:value="${user?.email}" class="form-control" name="email" id="email" placeholder="Entrez votre adresse mail" aria-label="Entrez votre adresse mail">
         </div>
         <div class="col-12">
-            <label for="role" class="form-label">Ville</label>
+            <label for="role" class="form-label">Role</label>
             <select name="role"  id="role" class="form-select" aria-label="Default select example">
                 <option th:value="${user?.id}" th:text="${user?.roles}"></option>
                 <option>ROLE_ADMIN</option>
                 <option>ROLE_USER</option>
             </select>
         </div>
-        <div class="col-12" th:unless="${user?.password}">
+        <div class="col-12">
             <label for="password" class="form-label">Mot de passe</label>
             <input type="password" class="form-control" name="password" id="password" placeholder="Entrez votre mot de passe" aria-label="Entrez votre mot de passe">
         </div>

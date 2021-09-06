@@ -46,12 +46,15 @@ public class UserService {
         }
     }
 
-    public Optional<UserEntity> updateUser(String id, String username, String email, String role, String nom) {
+    public Optional<UserEntity> updateUser(String id, String username, String email, String role, String password, String nom) {
         Optional<UserEntity> u = this.getUserById(id);
         try {
             u.get().setUsername(username);
             u.get().setEmail(email);
             u.get().setRoles(role);
+            if (password != "") {
+                u.get().setPassword(passwordEncoder.encode(password));
+            }
             u.get().setName(nom);
             ur.save(u.get());
             return u;
