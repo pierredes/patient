@@ -63,7 +63,7 @@ public class PatientController {
         String telephone = request.getParameter("telephone");
         String ville = request.getParameter("ville");
 
-        ps.addPatient(nom, prenom, email, telephone, ville);
+        ps.addPatient(nom, prenom, email, telephone, Integer.parseInt(ville));
         return "redirect:/patient/list";
     }
 
@@ -77,7 +77,7 @@ public class PatientController {
         String telephone = request.getParameter("telephone");
         String ville = request.getParameter("ville");
 
-        ps.addPatient(nom, prenom, email, telephone, ville);
+        ps.addPatient(nom, prenom, email, telephone, Integer.parseInt(ville));
             return "/patient/list";
         }
 
@@ -117,7 +117,7 @@ public class PatientController {
         String ville = request.getParameter("ville");
 
 
-        ps.updatePatient(id, nom, prenom, email, telephone, ville);
+        ps.updatePatient(id, nom, prenom, email, telephone, Integer.parseInt(ville));
         return "redirect:/patient/list";
     }
 

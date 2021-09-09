@@ -27,7 +27,7 @@ public class PatientService {
         return pr.findById(id);
     }
 
-    public PatientEntity addPatient(String nom, String prenom, String email, String telephone, String ville ) {
+    public PatientEntity addPatient(String nom, String prenom, String email, String telephone, int ville ) {
         try {
             PatientEntity p = new PatientEntity();
             p.setNom(nom);
@@ -35,7 +35,7 @@ public class PatientService {
             p.setEmail(email);
             p.setTelephone(telephone);
             VilleEntity villeP = new VilleEntity();
-            villeP.setId(Integer.parseInt(ville));
+            villeP.setId(ville);
             p.setVille(villeP);
             pr.save(p);
             return p;
@@ -45,7 +45,7 @@ public class PatientService {
         }
     }
 
-    public Optional<PatientEntity> updatePatient(int id, String nom, String prenom, String email, String telephone, String ville) {
+    public Optional<PatientEntity> updatePatient(int id, String nom, String prenom, String email, String telephone, int ville) {
         try {
             Optional<PatientEntity> p = pr.findById(id);
             p.get().setNom(nom);
@@ -53,7 +53,7 @@ public class PatientService {
             p.get().setEmail(email);
             p.get().setTelephone(telephone);
             VilleEntity villeP = new VilleEntity();
-            villeP.setId(Integer.parseInt(ville));
+            villeP.setId(ville);
             p.get().setVille(villeP);
             pr.save(p.get());
             return p;
