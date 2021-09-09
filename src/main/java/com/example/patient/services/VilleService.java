@@ -27,10 +27,10 @@ public class VilleService {
         return vr.findById(Integer.parseInt(id));
     }
 
-    public VilleEntity addVille( String cp, String nom ) {
+    public VilleEntity addVille( int cp, String nom ) {
         try {
             VilleEntity v = new VilleEntity();
-            v.setCodePostal(Integer.parseInt(cp));
+            v.setCodePostal(cp);
             v.setNom(nom);
             vr.save(v);
             return v;
@@ -40,11 +40,11 @@ public class VilleService {
         }
     }
 
-    public Optional<VilleEntity> updateVille(String id, String nom, String cp) {
+    public Optional<VilleEntity> updateVille(String id, String nom, int cp) {
         Optional<VilleEntity> v = this.getVilleById(id);
         try {
             v.get().setNom(nom);
-            v.get().setCodePostal(Integer.parseInt(cp));
+            v.get().setCodePostal(cp);
             vr.save(v.get());
             return v;
         } catch (Exception e) {
@@ -53,7 +53,7 @@ public class VilleService {
         }
     }
 
-    public void deletePatient(String id) {
+    public void deleteVille(String id) {
         Optional<VilleEntity> v = this.getVilleById(id);
         try {
             vr.delete(v.get());

@@ -40,7 +40,7 @@ public class VilleController {
     public String addPostVille (HttpServletRequest request) {
         String nom = request.getParameter("nom");
         String cp = request.getParameter("cp");
-        vs.addVille(cp, nom);
+        vs.addVille(Integer.parseInt(cp), nom);
         return "redirect:/ville/list";
     }
 
@@ -56,13 +56,13 @@ public class VilleController {
     public String postEditVille(@PathVariable(name = "id") String id, HttpServletRequest request) {
         String nom = request.getParameter("nom");
         String cp = request.getParameter("cp");
-        vs.updateVille(id, nom, cp);
+        vs.updateVille(id, nom, Integer.parseInt(cp));
         return "redirect:/ville/list";
     }
 
     @GetMapping("/delete/{id}")
     public String postEditVille(@PathVariable(name = "id") String id) {
-        vs.deletePatient(id);
+        vs.deleteVille(id);
         return "redirect:/ville/list";
     }
 
