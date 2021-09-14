@@ -67,21 +67,6 @@ public class PatientController {
         return "redirect:/patient/list";
     }
 
-    // post data for form modal
-    @RequestMapping("/addPatientModal")
-        public String AddPatientModal(Model model, HttpServletRequest request) {
-        model.addAttribute("message", "Ajouter un patient");
-        String nom = request.getParameter("nom");
-        String prenom = request.getParameter("prenom");
-        String email = request.getParameter("email");
-        String telephone = request.getParameter("telephone");
-        String ville = request.getParameter("ville");
-
-        ps.addPatient(nom, prenom, email, telephone, Integer.parseInt(ville));
-            return "/patient/list";
-        }
-
-
     // get data for edit form
     @GetMapping("/edit/{id}")
     public String getEditPatient(@PathVariable(name = "id") int id, Model model) {
@@ -120,32 +105,6 @@ public class PatientController {
         ps.updatePatient(id, nom, prenom, email, telephone, Integer.parseInt(ville));
         return "redirect:/patient/list";
     }
-
-
-    /*@RequestMapping("/updatePatientModal/{id}")
-    public String updatePatientModal(@PathVariable(name = "id") String id, Model model, HttpServletRequest request) {
-        model.addAttribute("message", "Ajouter un patient");
-
-        String nom = request.getParameter("nom");
-        String prenom = request.getParameter("prenom");
-        String email = request.getParameter("email");
-        String telephone = request.getParameter("telephone");
-        String ville = request.getParameter("ville");
-        try {
-            Optional<PatientEntity> p = pr.findById(Integer.parseInt(id));
-            p.get().setNom(nom);
-            p.get().setPrenom(prenom);
-            p.get().setEmail(email);
-            p.get().setTelephone(telephone);
-            VilleEntity villeP = new VilleEntity();
-            villeP.setId(Integer.parseInt(ville));
-            p.get().setVille(villeP);
-            pr.save(p.get());
-        } catch (Exception e){
-
-        }
-        return "/patient/list";
-    }*/
 
     // delete data
     @GetMapping("/delete/{id}")
