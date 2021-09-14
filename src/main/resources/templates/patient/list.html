@@ -30,36 +30,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="/patient/add"  th:object="${lv}" method="post">
-                            <div class="row">
-                                <div class="col">
-                                    <label for="nom" class="form-label">Nom :</label>
-                                    <input type="text" th:value="${patient?.nom}" class="form-control" name="nom" id="nom" placeholder="Entrez votre nom de famille" aria-label="Entrez votre nom de famille">
-                                </div>
-                                <div class="col">
-                                    <label for="prenom" class="form-label">Prénom :</label>
-                                    <input type="text" th:value="${patient?.prenom}" class="form-control" name="prenom" id="prenom" placeholder="Entrez votre prénom" aria-label="Entrez votre prénom">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <label for="email" class="form-label">Email :</label>
-                                <input type="email" th:value="${patient?.email}" class="form-control" name="email" id="email" placeholder="Entrez votre email" aria-label="Entrez votre email">
-                            </div>
-                            <div class="col-12">
-                                <label for="telephone" class="form-label">Téléphone</label>
-                                <input type="text" th:value="${patient?.telephone}" class="form-control" name="telephone" id="telephone" placeholder="Entrez votre numéro de téléphone" aria-label="Entrez votre numéro de téléphone">
-                            </div>
-                            <div class="col-12">
-                                <label for="ville" class="form-label">Ville</label>
-                                <select name="ville"  id="ville" class="form-select" aria-label="Default select example">
-                                    <option th:value="${ville1?.id}" th:text="${ville1?.nom}" value="Veuillez séléctionnez votre ville"></option>
-                                    <option th:each="ville: ${lv}"  th:value="${ville.id}"  th:text="${ville.nom}"></option>
-                                </select>
-                            </div>
-                            <div class="col-2">
-                                <button type="submit" class="btn btn-primary" id="envoyer_add_edit">Envoyer</button>
-                            </div>
-                        </form>
+                        <form action="/patient/add" method="post" th:insert="~{/patient/add_edit :: patientform}"></form>
                     </div>
                 </div>
             </div>

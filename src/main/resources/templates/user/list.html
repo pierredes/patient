@@ -11,10 +11,10 @@
             <h1 th:text="${message}"></h1>
         </div>
         <div class="col">
-            <button type="button" class="btn btn-primary" id="link_to_addPatient"><a href="/user/add" class="lien_btn">Ajouter un patient</a></button>
+            <button type="button" class="btn btn-primary" id="link_to_addPatient"><a href="/user/add" class="lien_btn">Ajouter un utilisateur</a></button>
             <!-- Bouton ajout modal-->
             <button type="button" class="btn btn-primary" id="AddUserModal" data-bs-toggle="modal" data-bs-target="#addUserForm">
-                Ajouter un patient Modals
+                Ajouter un utilisateur Modals
             </button>
         </div>
     </div>
@@ -24,39 +24,11 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ajouter un patient</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Ajouter un utilisateur</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/user/add" method="post">
-                        <div class="col">
-                            <label for="username" class="form-label">Username :</label>
-                            <input type="text" th:value="${user?.username}" class="form-control" name="username" id="username" placeholder="Entrez votre pseudo" aria-label="Entrez votre pseudo">
-                        </div>
-                        <div class="col">
-                            <label for="email" class="form-label">Email :</label>
-                            <input type="email" th:value="${user?.email}" class="form-control" name="email" id="email" placeholder="Entrez votre adresse mail" aria-label="Entrez votre adresse mail">
-                        </div>
-                        <div class="col-12">
-                            <label for="role" class="form-label">Role</label>
-                            <select name="role"  id="role" class="form-select" aria-label="Default select example">
-                                <option th:value="${user?.id}" th:text="${user?.roles}"></option>
-                                <option>ROLE_ADMIN</option>
-                                <option>ROLE_USER</option>
-                            </select>
-                        </div>
-                        <div class="col-12">
-                            <label for="password" class="form-label">Mot de passe</label>
-                            <input type="password" class="form-control" name="password" id="password" placeholder="Entrez votre mot de passe" aria-label="Entrez votre mot de passe">
-                        </div>
-                        <div class="col">
-                            <label for="nom" class="form-label">nom :</label>
-                            <input type="text" th:value="${user?.name}" class="form-control" name="nom" id="nom" placeholder="Entrez votre nom" aria-label="Entrez votre nom">
-                        </div>
-                        <div class="col-2">
-                            <button type="submit" class="btn btn-primary" id="envoyer_add_edit">Envoyer</button>
-                        </div>
-                    </form>
+                    <form action="/user/add" method="post" th:insert="~{/user/add_edit :: userform}"></form>
                 </div>
             </div>
         </div>

@@ -5,7 +5,7 @@
 <header th:insert="~{/layout/header :: header}"></header>
 <div class="container">
   <h1 th:text="${message}"> </h1>
-  <form action="" method="post">
+  <form action="" method="post" th:fragment="villeform">
       <div class="col">
         <label for="nom_ville" class="form-label">Nom de la ville :</label>
         <input type="text" th:value="${ville?.nom}" class="form-control" name="nom" id="nom_ville" placeholder="Entrez votre nom de ville" aria-label="Entrez votre nom de ville">

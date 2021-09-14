@@ -5,7 +5,7 @@
     <header th:insert="~{/layout/header :: header}"></header>
 <div class="container">
     <h1 th:text="${message}"> </h1>
-    <form action="" method="post">
+    <form action="" method="post" th:fragment="patientform">
         <div class="row">
             <div class="col">
                 <label for="nom" class="form-label">Nom :</label>

@@ -5,7 +5,7 @@
 <header th:insert="~{/layout/header :: header}"></header>
 <div class="container">
     <h1 th:text="${message}"> </h1>
-    <form action="" method="post">
+    <form action="" method="post" th:fragment="userform">
         <div class="col">
             <label for="username" class="form-label">Username :</label>
             <input type="text" th:value="${user?.username}" class="form-control" name="username" id="username" placeholder="Entrez votre pseudo" aria-label="Entrez votre pseudo">
