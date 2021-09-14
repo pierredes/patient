@@ -15,6 +15,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.sql.DataSource;
 
@@ -41,11 +45,21 @@ public class ApplicationConfig  extends WebSecurityConfigurerAdapter {
             http
                     .antMatcher("/ws/**")
                     .csrf()
-                    .disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // On utilise pas les sessions, toute req est déconnectée suite à l'exécution
+                    .disable()/*.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // On utilise pas les sessions, toute req est déconnectée suite à l'exécution
                     .and().authorizeRequests(authorize -> authorize
                             .anyRequest().hasRole("ADMIN")
-                    )
+                    )*/
                     .httpBasic();
+        }
+    }
+
+    @Configuration
+    @Order(3)
+    public class WebConfig implements WebMvcConfigurer {
+
+        @Override
+        public void addCorsMappings(CorsRegistry registry) {
+            registry.addMapping("/ws/**");
         }
     }
 
@@ -69,6 +83,7 @@ public class ApplicationConfig  extends WebSecurityConfigurerAdapter {
             http.csrf().disable();
         }
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
