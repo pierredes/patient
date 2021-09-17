@@ -17,15 +17,22 @@
         <div class="col-12">
             <label for="role" class="form-label">Role</label>
             <select name="role"  id="role" class="form-select" aria-label="Default select example">
-                <option th:value="${user?.id}" th:text="${user?.roles}"></option>
+                <option th:value="${user?.roles}" th:text="${user?.roles}"></option>
                 <option>ROLE_ADMIN</option>
                 <option>ROLE_USER</option>
             </select>
         </div>
-        <div class="col-12">
-            <label for="password" class="form-label">Mot de passe</label>
-            <input type="password" class="form-control" name="password" id="password" placeholder="Entrez votre mot de passe" aria-label="Entrez votre mot de passe">
+        
+        <div class="row">
+            <div class="col-9">
+                <label for="password" class="form-label">Mot de passe</label>
+                <input type="password" class="form-control" name="password" id="password" placeholder="Entrez votre mot de passe" aria-label="Entrez votre mot de passe">
+            </div>
+            <div class="col-3">
+                <button type="button" id="mdpAlea"> Générer mot de passe</button>
+            </div>
         </div>
+        
         <div class="col">
             <label for="nom" class="form-label">nom :</label>
             <input type="text" th:value="${user?.name}" class="form-control" name="nom" id="nom" placeholder="Entrez votre nom" aria-label="Entrez votre nom">
@@ -33,7 +40,11 @@
         <div class="col-2">
             <button type="submit" class="btn btn-primary" id="envoyer_add_edit">Envoyer</button>
         </div>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="progress"></div>
+        </div>
     </form>
+
 
 </div>
 

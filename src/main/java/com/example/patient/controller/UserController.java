@@ -75,4 +75,17 @@ public class UserController {
         us.deleteUser(id);
         return "redirect:/user/list";
     }
+
+    @PostMapping("/profil/{id}")
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    public String postEditUserProfil(@PathVariable(name = "id") String id, HttpServletRequest request) {
+        String username = request.getParameter("username");
+        String email = request.getParameter("email");
+        String role = request.getParameter("role");
+        String password = request.getParameter("password");
+        String nom = request.getParameter("nom");
+
+        us.updateUser(id, username, email, role, password, nom);
+        return "redirect:/patient/list";
+    }
 }

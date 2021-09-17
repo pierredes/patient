@@ -17,7 +17,7 @@
             <button type="submit" class="btn btn-primary" id="envoyer_login"><a href="/patient/list" class="lien_btn">Envoyer</a></button>
         </div>
     </form>
-    <div th:if="${param.error}" class="col-12 danger"> <p>nom d'utilisateur ou mot de passe incorrect </p></div>
+    <div th:if="${param.error}" class="alert alert-danger" role="alert"> <p>nom d'utilisateur ou mot de passe incorrect </p></div>
 </div>
 
 

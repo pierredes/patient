@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+
+import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,15 +58,19 @@ public class PatientController {
 
     // post data for add form
     @PostMapping("/add")
-    public String addPatient(HttpServletRequest request) {
+    public String addPatient(HttpServletRequest request, Model model) {
         String nom = request.getParameter("nom");
         String prenom = request.getParameter("prenom");
         String email = request.getParameter("email");
         String telephone = request.getParameter("telephone");
         String ville = request.getParameter("ville");
-
-        ps.addPatient(nom, prenom, email, telephone, Integer.parseInt(ville));
-        return "redirect:/patient/list";
+        try {
+            ps.addPatient(nom, prenom, email, telephone, Integer.parseInt(ville));
+            return "redirect:/patient/list?success";
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage() );
+            return "redirect:/patient/list?error";
+        }
     }
 
     // get data for edit form

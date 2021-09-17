@@ -32,3 +32,14 @@ h1 {
 #link_to_addPatient {
     float: right;
 }
+
+.img-profil {
+    height: 75px;
+    width: 75px
+}
+
+.dropdown {
+    position: absolute;
+    right: 15px;
+    top: 5px;
+}

@@ -27,8 +27,26 @@ public class PatientService {
         return pr.findById(id);
     }
 
-    public PatientEntity addPatient(String nom, String prenom, String email, String telephone, int ville ) {
-        try {
+    private void  checkPatient( String nom, String prenom, String telephone , String email ) throws Exception {
+        if( prenom.length() < 2 ){
+            throw new Exception("Invalid value pour prénom");
+        }
+
+        if( nom.length() < 2 ){
+            throw new Exception("Invalid value pour nom");
+        }
+
+        if( telephone.length() < 2 ){
+            throw new Exception("Invalid value pour telephone");
+        }
+
+        if( email.length() < 2 ){
+            throw new Exception("Invalid value pour email");
+        }
+    }
+
+    public PatientEntity addPatient(String nom, String prenom, String email, String telephone, int ville ) throws Exception {
+            checkPatient(nom, prenom, email, telephone);
             PatientEntity p = new PatientEntity();
             p.setNom(nom);
             p.setPrenom(prenom);
@@ -39,10 +57,7 @@ public class PatientService {
             p.setVille(villeP);
             pr.save(p);
             return p;
-        } catch (Exception e) {
-            System.out.println("Erreur :" + e);
-            return null;
-        }
+
     }
 
     public Optional<PatientEntity> updatePatient(int id, String nom, String prenom, String email, String telephone, int ville) {

@@ -4,8 +4,10 @@ import com.example.patient.entities.UserEntity;
 import com.example.patient.entities.VilleEntity;
 import com.example.patient.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -47,8 +49,9 @@ public class UserService {
     }
 
     public Optional<UserEntity> updateUser(String id, String username, String email, String role, String password, String nom) {
-        Optional<UserEntity> u = this.getUserById(id);
         try {
+            Optional<UserEntity> u = this.getUserById(id);
+
             u.get().setUsername(username);
             u.get().setEmail(email);
             u.get().setRoles(role);
@@ -60,7 +63,7 @@ public class UserService {
             return u;
         } catch (Exception e) {
             System.out.println("Erreur : " + e);
-            return null;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "erreur" );
         }
     }
 

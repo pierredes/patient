@@ -20,7 +20,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import javax.sql.DataSource;
 
 @Configuration
 @EnableGlobalMethodSecurity(
@@ -36,6 +35,7 @@ public class ApplicationConfig  extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+
     }
 
     @Configuration
@@ -45,10 +45,10 @@ public class ApplicationConfig  extends WebSecurityConfigurerAdapter {
             http
                     .antMatcher("/ws/**")
                     .csrf()
-                    .disable()/*.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // On utilise pas les sessions, toute req est déconnectée suite à l'exécution
+                    .disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // On utilise pas les sessions, toute req est déconnectée suite à l'exécution
                     .and().authorizeRequests(authorize -> authorize
                             .anyRequest().hasRole("ADMIN")
-                    )*/
+                    )
                     .httpBasic();
         }
     }
@@ -66,6 +66,7 @@ public class ApplicationConfig  extends WebSecurityConfigurerAdapter {
     @Configuration
     @Order(2)
     public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
+
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
