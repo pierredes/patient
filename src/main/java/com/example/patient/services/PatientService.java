@@ -29,6 +29,11 @@ public class PatientService {
 
         return pr.findById(id);
     }
+    
+    public PatientEntity findByEmail( String email) {
+
+        return pr.findByEmail(email);
+    }
 
     private void  checkPatient( String nom, String prenom, String telephone , String email ) throws Exception {
         if( prenom.length() < 2 ){

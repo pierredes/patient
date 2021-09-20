@@ -131,11 +131,10 @@ public class PatientController {
     public String checkPatient(@RequestParam String email) throws Exception{
     	
     	try {
-    		PatientEntity ps = pr.findByEmail(email);
-    		ps.getEmail();
+    		PatientEntity ps1 = ps.findByEmail(email);
+    		ps1.getEmail();
     		return "/patient/list";
     	} catch(Exception e) {
-    		System.out.println("pas ok");
     		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "erreur" );
     	}
     	

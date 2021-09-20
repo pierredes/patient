@@ -61,8 +61,8 @@
                         Update Modals
                     </button>
 
-                    <button class="btn btn-danger" id="delete">
-                        <a th:href="@{/patient/delete/{id}(id=${patient.id})}" class="lien_btn">Delete</a>
+                    <button class="btn btn-danger suppression" th:data-id="${patient.id}" id="delete" >Delete
+                        <!-- <a th:href="@{/patient/delete/{id}(id=${patient.id})}" class="lien_btn">Delete</a> -->
                     </button>
                 </td>
             </tr>
