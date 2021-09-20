@@ -4,7 +4,10 @@ import com.example.patient.entities.PatientEntity;
 import com.example.patient.entities.VilleEntity;
 import com.example.patient.repositories.PatientRepository;
 import com.example.patient.repositories.VilleRepository;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -86,4 +89,5 @@ public class PatientService {
             System.out.println("Erreur" + e);
         }
     }
+   
 }

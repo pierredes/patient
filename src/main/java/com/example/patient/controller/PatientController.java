@@ -3,10 +3,12 @@ package com.example.patient.controller;
 import com.example.patient.entities.PatientEntity;
 import com.example.patient.entities.VilleEntity;
 import com.example.patient.repositories.PatientRepository;
+import com.example.patient.repositories.UserRepository;
 import com.example.patient.repositories.VilleRepository;
 import com.example.patient.services.PatientService;
 import com.example.patient.services.VilleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -34,6 +38,9 @@ public class PatientController {
         this.ps = ps;
         this.vs = vs;
     }
+    
+    @Autowired
+    private PatientRepository pr;
 
     // Get all
     @GetMapping("/list")
@@ -118,5 +125,19 @@ public class PatientController {
         ps.deletePatient(id);
 
         return "redirect:/patient/list";
+    }
+    
+    @GetMapping("/check")
+    public String checkPatient(@RequestParam String email) throws Exception{
+    	
+    	try {
+    		PatientEntity ps = pr.findByEmail(email);
+    		ps.getEmail();
+    		return "/patient/list";
+    	} catch(Exception e) {
+    		System.out.println("pas ok");
+    		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "erreur" );
+    	}
+    	
     }
 }

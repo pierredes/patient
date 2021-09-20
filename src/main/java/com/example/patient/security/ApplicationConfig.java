@@ -54,7 +54,6 @@ public class ApplicationConfig  extends WebSecurityConfigurerAdapter {
     }
 
     @Configuration
-    @Order(3)
     public class WebConfig implements WebMvcConfigurer {
 
         @Override

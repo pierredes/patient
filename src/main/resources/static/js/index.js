@@ -5,6 +5,7 @@ const btn_generer_mdp = document.getElementById("mdpAlea");
 const progress_bar_input = document.getElementById("progress");
 const inputs = document.getElementsByTagName("input");
 const envoyer_add_edit_btn = document.getElementById("envoyer_add_edit");
+const email_patient = document.getElementById("email");
 
 const password_aleatoire = (() => {
     let resultat = "";
@@ -64,6 +65,8 @@ nom_input.addEventListener('blur', () => {
 });
 
 progress_bar();
+
+
 
 
 
