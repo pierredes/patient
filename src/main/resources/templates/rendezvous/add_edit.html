@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" >
+<head th:replace="/layout/head :: head"></head>
+<body>
+    <header th:insert="~{/layout/header :: header}"></header>
+<div class="container">
+    <h1 th:text="${message}"> </h1>
+    <form th:action="@{/rdv/edit/${rdv.id}}" method="post" th:fragment="rdvform">
+        <div class="row">
+            <div class="col">
+                <label for="date" class="form-label">date :</label>
+                <input type="date" th:value="${rdv?.date}" class="form-control" name="date" id="date" placeholder="Entrez la date de votre rendez vous" aria-label="Entrez la date de votre rendez vous">
+            </div>
+            <div class="col">
+                <label for="type" class="form-label">type :</label>
+                <input type="text" th:value="${rdv?.type}" class="form-control" name="type" id="type" placeholder="Quel est le motif de votre rendez vous" aria-label="Quel est le motif de votre rendez vous">
+            </div>
+        </div>
+        <div class="col-12">
+            <label for="duree" class="form-label">duree :</label>
+            <input type="text" th:value="${rdv?.duree}" class="form-control" name="duree" id="duree" placeholder="quelle est la durée dont vous avez besoin" aria-label="quelle est la durée dont vous avez besoin">
+        </div>
+        <div class="col-12">
+            <label for="note" class="form-label">note : </label>
+            <input type="text" th:value="${rdv?.note}" class="form-control" name="note" id="note" placeholder="pourquoi voulez vous venir" aria-label="Pourquoi voulez vous venir ?">
+        </div>
+        <div class="col-12">
+            <label for="patient" class="form-label">Patient :</label>
+            <select name="patient"  id="pantient" class="form-select" aria-label="Default select example">
+                <option th:value="${patient1?.id}" th:text="${patient1?.nom}"></option>
+                <option th:each="patient: ${lp}"
+                        th:value="${patient.id}"
+                        th:utext="${patient.nom}"></option>
+            </select>
+        </div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-primary" id="envoyer_add_edit">Envoyer</button>
+        </div>
+    </form>
+
+</div>
+
+    <footer th:insert="~{/layout/footer :: footer}"></footer>
+</body>
+
+</html>

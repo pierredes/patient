@@ -12,26 +12,24 @@
                 <h1 th:text="${message}"></h1>
             </div>
             <div class="col">
-                <button type="button" class="btn btn-primary" id="link_to_addPatient"><a href="/patient/add" class="lien_btn">Ajouter un patient</a></button>
 
-                <!-- Bouton ajout modal-->
-                <button type="button" class="btn btn-primary" id="AddPatientModal" data-bs-toggle="modal" data-bs-target="#addPatientForm">
-                    Ajouter un patient Modals
+                <button type="button" class="btn btn-primary" id="AddrdvModal" data-bs-toggle="modal" data-bs-target="#addrdvform">
+                    Ajouter un rendez vous
                 </button>
             </div>
         </div>
 
 
          <!-- ajout patient Modal-->
-        <div class="modal fade" id="addPatientForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="addrdvform" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ajouter un patient</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Ajouter un rendez vous</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="/patient/add" method="post" th:insert="~{/patient/add_edit :: patientform}"></form>
+                        <form action="/rdv/add" method="post" th:insert="~{/rendezvous/add_edit :: rdvform}"></form>
                     </div>
                 </div>
             </div>
@@ -39,11 +37,11 @@
         
         <!-- Edition patient  -->
         
-        <div class="modal fade" id="editPatientForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="editrdvform" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ajouter un patient</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Modifier un rendez vous</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body" th:include="~{/patient/add_edit :: patientform}"></div>
@@ -53,32 +51,28 @@
         
         
 
-        <table class="table" th:each="patient: ${lp}">
+        <table class="table" th:each="rdv: ${lr}">
         
             <thead>
             <tr>
                 <th scope="col" class="col-1">#</th>
-                <th scope="col" class="col-4">Nom & prenom</th>
-                <th scope="col" class="col-3">Ville</th>
+                <th scope="col" class="col-4">date</th>
+                <th scope="col" class="col-3">type</th>
                 <th scope="col" class="col-4">Action</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <th scope="row"  th:utext="${patient.id}"></th>
-                <td th:utext="${patient.nom + ' ' + patient.prenom}"></td>
-                <td th:utext="${patient.getVille()?.nom}"></td>
+                <th scope="row"  th:utext="${rdv.id}"></th>
+                <td th:utext="${rdv.date}"></td>
+                <td th:utext="${rdv.type}"></td>
                 <td>
-                    <button class="btn btn-primary" id='update'>
-                        <a th:href="@{/patient/edit/{id}(id=${patient.id})}" class="lien_btn">Update</a>
-                    </button>
-
                     <!-- Bouton update modal-->
-                    <button type="button" class="btn btn-primary" id="editPatientForm" data-bs-toggle="modal" data-bs-target="#editPatientForm">
-                        Update Modals
+                    <button type="button" class="btn btn-primary" id="editPatientForm" data-bs-toggle="modal" data-bs-target="#editrdvform">
+                        Update
                     </button>
 
-                    <button class="btn btn-danger suppression" th:data-id="${patient.id}" id="delete" >Delete
+                    <button class="btn btn-danger suppression" th:data-id="${rdv.id}" id="delete" >Delete
                         <!-- <a th:href="@{/patient/delete/{id}(id=${patient.id})}" class="lien_btn">Delete</a> -->
                     </button>
                 </td>
@@ -89,7 +83,7 @@
         </table>
     </div>
     <footer th:insert="~{/layout/footer :: footer}"></footer>
-	<script type="text/javascript" src="/js/patient.js"></script>
+	<script type="text/javascript" src="/js/rdv.js"></script>
 </body>
 
 </html>

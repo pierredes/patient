@@ -28,13 +28,11 @@ for(let i = 0; i<btn_suppression.length; i++) {
 let id = btn_suppression[i].getAttribute('data-id');
 	btn_suppression[i].addEventListener('click', (e) => {
 		if(confirm("êtes-vous sur de vouloir supprimer ce patient ?")) {
-			e.preventDefault
-			fetch("http://localhost:8080/patient/delete/" + id).then(res => {
-				
+			fetch("http://localhost:8080/patient/delete/" + id).then(res => {				
 				if(res.ok) {
-					console.log(res);
-					window.location.reload();
+					window.location = "/patient/list?success";
 				}
+				
 			})
 		} else {
 			return false;
