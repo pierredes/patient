@@ -1,4 +1,11 @@
 const btn_suppression = document.getElementsByClassName("suppression");
+const btn_edit = document.getElementsByClassName("update");
+const input_date = document.getElementById("date");
+const input_type = document.getElementById("type");
+const input_duree = document.getElementById("duree");
+const input_note = document.getElementById("note");
+const input_patient = document.getElementById("patient");
+const modal = document.getElementById("modal-content");
 
 for(let i=0; i<btn_suppression.length; i++) {
 	let id = btn_suppression[i].getAttribute('data-id');
@@ -12,5 +19,20 @@ for(let i=0; i<btn_suppression.length; i++) {
 		} else {
 			return false;
 		}
+	})
+}
+
+for(let i=0; i<btn_edit.length; i++) {
+	let id = btn_suppression[i].getAttribute('data-id');
+	btn_edit[i].addEventListener('click', () => {
+			fetch("/rdv/edit/" + id).then(res => {
+				if(res.ok) {
+					res.text().then((data) => {
+						modal.innerHTML = data;
+					})
+				} else {
+					console.log("pas ok")
+				}
+			}) 
 	})
 }

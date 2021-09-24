@@ -74,6 +74,18 @@ public class RendezvousController {
 		}
 	}
 	
+	 @GetMapping("/edit/{id}")
+	    public String edit( Model model , @PathVariable int id ){
+	        try{
+	            model.addAttribute( "rdv" , rs.getRdvById(id) );
+	            model.addAttribute("lp", ps.getAllPatient() );
+	            
+	            return "rendezvous/add_edit";
+	        }catch ( Exception e ){
+	            return "redirect:/rdv/list?error="+e.getMessage();
+	        }
+	    }
+	
 	@PostMapping("/edit/{id}")
 	public String updateRdv(@PathVariable(name = "id") int id, HttpServletRequest request) {
 		String date = request.getParameter("date");
@@ -89,9 +101,9 @@ public class RendezvousController {
 			Date date_convertie = formatter.parse(date);
 			System.out.println(date_convertie);
 			rs.updateRdv(id, date_convertie, type, Integer.parseInt(duree), note, Integer.parseInt(patient));
-			return "redirect:rdv/list?success";
+			return "redirect:/rdv/list?success";
 		} catch (Exception e) {
-			return "redirect:rdv/list?error";
+			return "redirect:/rdv/list?error";
 		}
 	}
 	

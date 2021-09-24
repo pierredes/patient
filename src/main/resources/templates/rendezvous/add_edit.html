@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org" >
-<head th:replace="/layout/head :: head"></head>
 <body>
-    <header th:insert="~{/layout/header :: header}"></header>
-<div class="container">
-    <h1 th:text="${message}"> </h1>
-    <form th:action="@{/rdv/edit/${rdv.id}}" method="post" th:fragment="rdvform">
+
+    <form th:action="@{'/rdv/edit/' + ${rdv?.id}}" method="post" th:fragment="rdvform">
         <div class="row">
             <div class="col">
                 <label for="date" class="form-label">date :</label>
-                <input type="date" th:value="${rdv?.date}" class="form-control" name="date" id="date" placeholder="Entrez la date de votre rendez vous" aria-label="Entrez la date de votre rendez vous">
+                <input type="datetime-local" th:value="${rdv?.date}" class="form-control" name="date" id="date" placeholder="Entrez la date de votre rendez vous" aria-label="Entrez la date de votre rendez vous">
             </div>
             <div class="col">
                 <label for="type" class="form-label">type :</label>
@@ -26,7 +23,7 @@
         </div>
         <div class="col-12">
             <label for="patient" class="form-label">Patient :</label>
-            <select name="patient"  id="pantient" class="form-select" aria-label="Default select example">
+            <select name="patient"  id="patient" class="form-select" aria-label="Default select example">
                 <option th:value="${patient1?.id}" th:text="${patient1?.nom}"></option>
                 <option th:each="patient: ${lp}"
                         th:value="${patient.id}"
@@ -40,7 +37,6 @@
 
 </div>
 
-    <footer th:insert="~{/layout/footer :: footer}"></footer>
 </body>
 
 </html>

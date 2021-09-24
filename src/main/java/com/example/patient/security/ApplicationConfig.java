@@ -54,15 +54,6 @@ public class ApplicationConfig  extends WebSecurityConfigurerAdapter {
     }
 
     @Configuration
-    public class WebConfig implements WebMvcConfigurer {
-
-        @Override
-        public void addCorsMappings(CorsRegistry registry) {
-            registry.addMapping("/ws/**");
-        }
-    }
-
-    @Configuration
     @Order(2)
     public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 

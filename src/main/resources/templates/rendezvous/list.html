@@ -44,7 +44,8 @@
                         <h5 class="modal-title" id="exampleModalLabel">Modifier un rendez vous</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body" th:include="~{/patient/add_edit :: patientform}"></div>
+                    <div class="modal-body" id="modal-content"></div>
+                     
                 </div>
             </div>
         </div>
@@ -68,7 +69,7 @@
                 <td th:utext="${rdv.type}"></td>
                 <td>
                     <!-- Bouton update modal-->
-                    <button type="button" class="btn btn-primary" id="editPatientForm" data-bs-toggle="modal" data-bs-target="#editrdvform">
+                    <button type="button" class="btn btn-primary update" id="editPatientForm" data-bs-toggle="modal" th:data-id="${rdv.id}" data-bs-target="#editrdvform">
                         Update
                     </button>
 

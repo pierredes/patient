@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/ws/ville")
+@CrossOrigin("http://localhost:4200")
 public class VilleApiController {
     @Autowired
     VilleService vs;
