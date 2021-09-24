@@ -44,6 +44,7 @@ public class ApplicationConfig  extends WebSecurityConfigurerAdapter {
         protected void configure(HttpSecurity http) throws Exception {
             http
                     .antMatcher("/ws/**")
+                    .cors().and()
                     .csrf()
                     .disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // On utilise pas les sessions, toute req est déconnectée suite à l'exécution
                     .and().authorizeRequests(authorize -> authorize
@@ -52,6 +53,8 @@ public class ApplicationConfig  extends WebSecurityConfigurerAdapter {
                     .httpBasic();
         }
     }
+
+   
 
     @Configuration
     @Order(2)
