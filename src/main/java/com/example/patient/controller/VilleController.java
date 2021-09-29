@@ -61,7 +61,7 @@ public class VilleController {
     }
 
     @GetMapping("/delete/{id}")
-    public String postEditVille(@PathVariable(name = "id") String id) {
+    public String postEditVille(@PathVariable(name = "id") int id) {
         vs.deleteVille(id);
         return "redirect:/ville/list";
     }

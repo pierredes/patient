@@ -42,19 +42,18 @@ public class ApplicationConfig  extends WebSecurityConfigurerAdapter {
     @Order(1)
     public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
         protected void configure(HttpSecurity http) throws Exception {
-            http
-                    .antMatcher("/ws/**")
-                    .cors().and()
-                    .csrf()
-                    .disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // On utilise pas les sessions, toute req est déconnectée suite à l'exécution
-                    .and().authorizeRequests(authorize -> authorize
-                            .anyRequest().hasRole("ADMIN")
-                    )
-                    .httpBasic();
+        	http.cors().and()
+            .antMatcher("/ws/**")
+            .csrf()
+            .disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // On utilise pas les sessions, toute req est déconnectée suite à l'exécution
+            .and().authorizeRequests(authorize -> authorize
+                    .anyRequest().hasRole("ADMIN")
+            )
+            .httpBasic();
         }
     }
 
-   
+    
 
     @Configuration
     @Order(2)
@@ -64,17 +63,17 @@ public class ApplicationConfig  extends WebSecurityConfigurerAdapter {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             //formLogin = utiliser un formulaire d'authetification - loginPage : chemin de l'authentification
-            http.formLogin().loginPage("/login").defaultSuccessUrl("/");
-            // Autoriser un accès anonyme sur les routes /login et /css/**
-            http.authorizeRequests().antMatchers("/login" , "/css/**" ).permitAll();
-            // Autoriser les actions post pour les admins : ROLE_ADMIN
-            http.authorizeRequests().antMatchers("**/add" , "**/edit/**" , "**/delete/**").hasRole("ADMIN");
+        	 http.formLogin().loginPage("/login").defaultSuccessUrl("/");
+             // Autoriser un accès anonyme sur les routes /login et /css/**
+             http.authorizeRequests().antMatchers("/login" , "/css/**" ).permitAll();
+             // Autoriser les actions post pour les admins : ROLE_ADMIN
+             http.authorizeRequests().antMatchers("**/add" , "**/edit/**" , "**/delete/**").hasRole("ADMIN");
 
-            // Tous les utilisateurs qui ne sont pas mentionnées en haut devrait s'authentifier
-            http.authorizeRequests().anyRequest().authenticated();
+             // Tous les utilisateurs qui ne sont pas mentionnées en haut devrait s'authentifier
+             http.authorizeRequests().anyRequest().authenticated();
 
-            // désactiver la protection csrf
-            http.csrf().disable();
+             // désactiver la protection csrf
+             http.csrf().disable();
         }
     }
 

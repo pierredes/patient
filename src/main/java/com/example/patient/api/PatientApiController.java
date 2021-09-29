@@ -41,10 +41,10 @@ public class PatientApiController {
         }
     }
 
-    @PostMapping(path = "/add", produces = "application/json")
+    @PostMapping(path = "/", produces = "application/json")
     public ResponseEntity<PatientEntity> addPatientApi(@RequestBody PatientEntity patient) {
         try{
-            PatientEntity createPatient = ps.addPatient( patient.getNom() , patient.getPrenom() , patient.getTelephone(), patient.getEmail() , patient.getVille().getId() );
+            PatientEntity createPatient = ps.addPatient( patient.getNom() , patient.getPrenom(), patient.getEmail() , patient.getTelephone() , patient.getVille().getId() );
 
             URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                     .path("/{id}")

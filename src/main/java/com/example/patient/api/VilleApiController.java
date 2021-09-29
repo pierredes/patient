@@ -13,6 +13,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 @RestController
+//@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/ws/ville")
 
 public class VilleApiController {
@@ -53,7 +54,7 @@ public class VilleApiController {
     }
 
     @DeleteMapping(path = "/delete/{id}")
-    void deleteVille(@PathVariable(name = "id") String id) {
+    void deleteVille(@PathVariable(name = "id") int id) {
         vs.deleteVille(id);
     }
 }

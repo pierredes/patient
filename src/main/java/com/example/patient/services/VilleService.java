@@ -53,12 +53,9 @@ public class VilleService {
         }
     }
 
-    public void deleteVille(String id) {
-        Optional<VilleEntity> v = this.getVilleById(id);
-        try {
-            vr.delete(v.get());
-        } catch (Exception e) {
-            System.out.println("Erreur" + e);
-        }
+    public void deleteVille(int id) {
+
+            vr.deleteById(id);
+        
     }
 }

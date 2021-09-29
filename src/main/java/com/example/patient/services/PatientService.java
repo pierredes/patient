@@ -35,7 +35,7 @@ public class PatientService {
         return pr.findByEmail(email);
     }
 
-    private void  checkPatient( String nom, String prenom, String telephone , String email ) throws Exception {
+    private void  checkPatient( String nom, String prenom, String email , String telephone ) throws Exception {
         if( prenom.length() < 2 ){
             throw new Exception("Invalid value pour prénom");
         }
@@ -44,11 +44,11 @@ public class PatientService {
             throw new Exception("Invalid value pour nom");
         }
 
-        if( telephone.length() < 2 ){
+        if( email.length() < 2 ){
             throw new Exception("Invalid value pour telephone");
         }
 
-        if( email.length() < 2 ){
+        if( telephone.length() < 2 ){
             throw new Exception("Invalid value pour email");
         }
     }
@@ -71,6 +71,7 @@ public class PatientService {
     public Optional<PatientEntity> updatePatient(int id, String nom, String prenom, String email, String telephone, int ville) {
         try {
             Optional<PatientEntity> p = pr.findById(id);
+            checkPatient(nom, prenom, email, telephone);
             p.get().setNom(nom);
             p.get().setPrenom(prenom);
             p.get().setEmail(email);
