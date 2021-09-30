@@ -61,12 +61,9 @@ public class RendezvousController {
 		String duree = request.getParameter("duree");
 		String note = request.getParameter("note");
 		String patient = request.getParameter("patient");
-		System.out.print(date);
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		try {
-			Date date_convertie = formatter.parse(date);
-			System.out.println(date_convertie);
-			rs.addRdv(date_convertie, type, Integer.parseInt(duree), note, Integer.parseInt(patient));
+
+			rs.addRdv(date, type, Integer.parseInt(duree), note, Integer.parseInt(patient));
 			return "redirect:/rdv/list?success";
 		} catch (Exception e) {
 			System.out.println(e);
@@ -93,14 +90,10 @@ public class RendezvousController {
 		String duree = request.getParameter("duree");
 		String note = request.getParameter("note");
 		String patient = request.getParameter("patient");
-		System.out.print(date);
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		
 		try {
-			
-			Date date_convertie = formatter.parse(date);
-			System.out.println(date_convertie);
-			rs.updateRdv(id, date_convertie, type, Integer.parseInt(duree), note, Integer.parseInt(patient));
+
+			rs.updateRdv(id, date, type, Integer.parseInt(duree), note, Integer.parseInt(patient));
 			return "redirect:/rdv/list?success";
 		} catch (Exception e) {
 			return "redirect:/rdv/list?error";

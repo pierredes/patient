@@ -1,6 +1,7 @@
 package com.example.patient.api;
 
 import java.net.URI;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,7 +53,7 @@ public class RendezvousApiController {
 	@PostMapping(path = "/", produces = "application/json")
     public ResponseEntity<RendezvousEntity> addRdvApi(@RequestBody RendezvousEntity rdv) {
         try{
-            RendezvousEntity createrdv = rs.addRdv( rdv.getDate(), rdv.getType(), rdv.getDuree() , rdv.getNote(), rdv.getPatient().getId() );
+            RendezvousEntity createrdv = rs.addRdv( rdv.getDate().toString(), rdv.getType(), rdv.getDuree() , rdv.getNote(), rdv.getPatient().getId() );
 
             URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                     .path("/{id}")
@@ -70,12 +71,15 @@ public class RendezvousApiController {
 	
 	@PutMapping(path = "/update/{id}", produces = "application/json")
     public ResponseEntity<RendezvousEntity> updateRdvApi(@PathVariable(name = "id") int id, @RequestBody RendezvousEntity rdv) {
-        RendezvousEntity rdvUpdate = rs.updateRdv(id,  rdv.getDate(), rdv.getType(), rdv.getDuree() , rdv.getNote(), rdv.getPatient().getId());
-        if (rdvUpdate == null) {
-            return ResponseEntity.badRequest().build();
-        } else {
-            URI uir = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(rdvUpdate).toUri();
+        
+        try{
+        	RendezvousEntity rdvUpdate = rs.updateRdv(id, rdv.getDate().toString(), rdv.getType(), rdv.getDuree() , rdv.getNote(), rdv.getPatient().getId());
+        	URI uir = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(rdvUpdate).toUri();
             return ResponseEntity.created(uir).body(rdvUpdate);
+
+        }catch ( Exception e ){
+            System.out.println("Je suis ici");
+            throw new ResponseStatusException( HttpStatus.BAD_REQUEST , e.getMessage() );
         }
     }
 

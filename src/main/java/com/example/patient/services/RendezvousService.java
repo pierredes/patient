@@ -1,7 +1,10 @@
 package com.example.patient.services;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.stereotype.Service;
 
@@ -25,9 +28,15 @@ public class RendezvousService {
 		return rp.findById(id).get();
 	}
 	
-	public RendezvousEntity addRdv(Date date, String type, int duree, String note, int patient ) {
+	public RendezvousEntity addRdv(String date, String type, int duree, String note, int patient ) throws ParseException {
 		RendezvousEntity rdv = new RendezvousEntity();
-		rdv.setDate(date);
+	
+        
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH);
+
+        Date datet = formatter.parse(date);
+        
+		rdv.setDate(datet);
 		rdv.setType(type);
 		rdv.setDuree(duree);
 		rdv.setNote(note);
@@ -38,9 +47,13 @@ public class RendezvousService {
 		return rdv;
 	}
 	
-	public RendezvousEntity updateRdv(int id, Date date, String type, int duree, String note, int patient) {
+	public RendezvousEntity updateRdv(int id, String date, String type, int duree, String note, int patient) throws ParseException {
 		RendezvousEntity rdv = this.getRdvById(id);
-		rdv.setDate(date);
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH);
+
+        Date datet= formatter.parse(date);
+        
+		rdv.setDate(datet);
 		rdv.setType(type);
 		rdv.setDuree(duree);
 		rdv.setNote(note);
