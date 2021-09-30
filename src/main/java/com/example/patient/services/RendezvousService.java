@@ -28,15 +28,13 @@ public class RendezvousService {
 		return rp.findById(id).get();
 	}
 	
-	public RendezvousEntity addRdv(String date, String type, int duree, String note, int patient ) throws ParseException {
+	public RendezvousEntity addRdv(Date date, String type, int duree, String note, int patient ) throws ParseException {
 		RendezvousEntity rdv = new RendezvousEntity();
 	
         
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH);
-
-        Date datet = formatter.parse(date);
+       
         
-		rdv.setDate(datet);
+		rdv.setDate(date);
 		rdv.setType(type);
 		rdv.setDuree(duree);
 		rdv.setNote(note);
@@ -47,13 +45,11 @@ public class RendezvousService {
 		return rdv;
 	}
 	
-	public RendezvousEntity updateRdv(int id, String date, String type, int duree, String note, int patient) throws ParseException {
+	public RendezvousEntity updateRdv(int id, Date date, String type, int duree, String note, int patient) throws ParseException {
 		RendezvousEntity rdv = this.getRdvById(id);
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH);
-
-        Date datet= formatter.parse(date);
+		
         
-		rdv.setDate(datet);
+		rdv.setDate(date);
 		rdv.setType(type);
 		rdv.setDuree(duree);
 		rdv.setNote(note);

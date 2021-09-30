@@ -53,7 +53,7 @@ public class RendezvousApiController {
 	@PostMapping(path = "/", produces = "application/json")
     public ResponseEntity<RendezvousEntity> addRdvApi(@RequestBody RendezvousEntity rdv) {
         try{
-            RendezvousEntity createrdv = rs.addRdv( rdv.getDate().toString(), rdv.getType(), rdv.getDuree() , rdv.getNote(), rdv.getPatient().getId() );
+            RendezvousEntity createrdv = rs.addRdv( rdv.getDate(), rdv.getType(), rdv.getDuree() , rdv.getNote(), rdv.getPatient().getId() );
 
             URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                     .path("/{id}")
@@ -64,7 +64,7 @@ public class RendezvousApiController {
                     .body(createrdv);
 
         }catch ( Exception e ){
-            System.out.println("Je suis ici");
+            System.out.println(e.getMessage());
             throw new ResponseStatusException( HttpStatus.BAD_REQUEST , e.getMessage() );
         }
     }
@@ -73,12 +73,12 @@ public class RendezvousApiController {
     public ResponseEntity<RendezvousEntity> updateRdvApi(@PathVariable(name = "id") int id, @RequestBody RendezvousEntity rdv) {
         
         try{
-        	RendezvousEntity rdvUpdate = rs.updateRdv(id, rdv.getDate().toString(), rdv.getType(), rdv.getDuree() , rdv.getNote(), rdv.getPatient().getId());
+        	RendezvousEntity rdvUpdate = rs.updateRdv(id, rdv.getDate(), rdv.getType(), rdv.getDuree() , rdv.getNote(), rdv.getPatient().getId());
         	URI uir = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(rdvUpdate).toUri();
             return ResponseEntity.created(uir).body(rdvUpdate);
 
         }catch ( Exception e ){
-            System.out.println("Je suis ici");
+            System.out.println(e.getMessage());
             throw new ResponseStatusException( HttpStatus.BAD_REQUEST , e.getMessage() );
         }
     }
