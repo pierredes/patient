@@ -4,10 +4,13 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "rendezvous", schema = "medical", catalog = "")
 public class RendezvousEntity {
 	private int id;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
     private Date date;
     private String type;
     private int duree;

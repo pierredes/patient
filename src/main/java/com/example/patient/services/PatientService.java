@@ -20,8 +20,13 @@ public class PatientService {
         this.pr = pr;
     }
 
-    public List<PatientEntity> getAllPatient() {
-        return (List<PatientEntity>) pr.findAll();
+    public List<PatientEntity> getAllPatient(String search) {
+        
+        if( search == null || search.length() == 0 ){
+        	return (List<PatientEntity>) pr.findAll();
+        }else{
+            return pr.findByNomContainsOrPrenomContains( search , search ); 
+        }
 
     }
 

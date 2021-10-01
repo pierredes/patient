@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController()
 @RequestMapping("/ws/patient")
 public class PatientApiController {
@@ -22,13 +24,10 @@ public class PatientApiController {
     PatientService ps;
 
     @GetMapping(path = "/", produces = "application/json")
-    public ResponseEntity<List<PatientEntity>> getallPatientApi() {
+    public List<PatientEntity> getallPatientApi( HttpServletRequest request) {
 
-        try {
-            return ResponseEntity.ok().body(ps.getAllPatient());
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+    	 System.out.println( "\nVal recherchée = "+ request.getParameter("search") + "\n" );
+         return ps.getAllPatient( request.getParameter("search") );
     }
 
     @GetMapping(path = "/{id}", produces = "application/json")

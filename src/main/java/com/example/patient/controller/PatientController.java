@@ -47,10 +47,10 @@ public class PatientController {
     @GetMapping("/list")
     public String getAllPatient(Model model) {
         model.addAttribute("message", "Voila la lite des patient");
-        List<PatientEntity> lp = ps.getAllPatient();
+        //List<PatientEntity> lp = ps.getAllPatient();
         List<VilleEntity> lv = vs.getAllVille();
         model.addAttribute("lv", lv);
-        model.addAttribute("lp", lp);
+       // model.addAttribute("lp", lp);
 
         return "patient/list";
     }

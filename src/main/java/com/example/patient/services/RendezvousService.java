@@ -20,21 +20,31 @@ public class RendezvousService {
 		this.rp = rp;
 	}
 
-	public List<RendezvousEntity> getAllRdv() {
-		return (List<RendezvousEntity>) rp.findAll();
+	public List<RendezvousEntity> getAllRdv(String search) throws ParseException {
+		
+
+		if(search == null || search.length()==0) {
+			return (List<RendezvousEntity>) rp.findAll();
+		}else {
+			return rp.findByPatientNomContains(search);
+		}
+		
+		
 	}
 	
 	public RendezvousEntity getRdvById(int id) {
 		return rp.findById(id).get();
 	}
 	
-	public RendezvousEntity addRdv(Date date, String type, int duree, String note, int patient ) throws ParseException {
+	public RendezvousEntity addRdv(String date, String type, int duree, String note, int patient ) throws ParseException {
 		RendezvousEntity rdv = new RendezvousEntity();
 	
-        
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.ENGLISH);
+		
+        Date datet = formatter.parse(date);
        
         
-		rdv.setDate(date);
+		rdv.setDate(datet);
 		rdv.setType(type);
 		rdv.setDuree(duree);
 		rdv.setNote(note);
@@ -45,11 +55,13 @@ public class RendezvousService {
 		return rdv;
 	}
 	
-	public RendezvousEntity updateRdv(int id, Date date, String type, int duree, String note, int patient) throws ParseException {
+	public RendezvousEntity updateRdv(int id, String date, String type, int duree, String note, int patient) throws ParseException {
 		RendezvousEntity rdv = this.getRdvById(id);
 		
-        
-		rdv.setDate(date);
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.ENGLISH);
+		
+        Date datet = formatter.parse(date);
+		rdv.setDate(datet);
 		rdv.setType(type);
 		rdv.setDuree(duree);
 		rdv.setNote(note);

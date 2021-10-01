@@ -2,8 +2,11 @@ package com.example.patient.api;
 
 import java.net.URI;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,13 +34,9 @@ public class RendezvousApiController {
     RendezvousService rs;
 	
 	@GetMapping(path = "/", produces = "application/json")
-    public ResponseEntity<List<RendezvousEntity>> getallRDVApi() {
+    public List<RendezvousEntity> getallRDVApi(HttpServletRequest request) throws ParseException {
 
-        try {
-            return ResponseEntity.ok().body(rs.getAllRdv());
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        return rs.getAllRdv(request.getParameter("search"));
     }
 	
 	@GetMapping(path = "/{id}", produces = "application/json")
@@ -52,8 +51,11 @@ public class RendezvousApiController {
 	
 	@PostMapping(path = "/", produces = "application/json")
     public ResponseEntity<RendezvousEntity> addRdvApi(@RequestBody RendezvousEntity rdv) {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+
+        String dateFormatStr = formatter.format( rdv.getDate() ); 
         try{
-            RendezvousEntity createrdv = rs.addRdv( rdv.getDate(), rdv.getType(), rdv.getDuree() , rdv.getNote(), rdv.getPatient().getId() );
+            RendezvousEntity createrdv = rs.addRdv( dateFormatStr,  rdv.getType(), rdv.getDuree() , rdv.getNote(), rdv.getPatient().getId() );
 
             URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                     .path("/{id}")
@@ -71,9 +73,11 @@ public class RendezvousApiController {
 	
 	@PutMapping(path = "/update/{id}", produces = "application/json")
     public ResponseEntity<RendezvousEntity> updateRdvApi(@PathVariable(name = "id") int id, @RequestBody RendezvousEntity rdv) {
-        
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+
+        String dateFormatStr = formatter.format( rdv.getDate() ); 
         try{
-        	RendezvousEntity rdvUpdate = rs.updateRdv(id, rdv.getDate(), rdv.getType(), rdv.getDuree() , rdv.getNote(), rdv.getPatient().getId());
+        	RendezvousEntity rdvUpdate = rs.updateRdv(id, dateFormatStr, rdv.getType(), rdv.getDuree() , rdv.getNote(), rdv.getPatient().getId());
         	URI uir = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(rdvUpdate).toUri();
             return ResponseEntity.created(uir).body(rdvUpdate);
 

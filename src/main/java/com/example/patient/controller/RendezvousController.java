@@ -38,10 +38,10 @@ public class RendezvousController {
 	
 	@GetMapping("/list")
 	public String getAllRdv(Model model) {
-		List<RendezvousEntity> lr = rs.getAllRdv();
-		List<PatientEntity> lp = ps.getAllPatient();
-		model.addAttribute("lr", lr);
-		model.addAttribute("lp", lp);
+		//List<RendezvousEntity> lr = rs.getAllRdv();
+		//List<PatientEntity> lp = ps.getAllPatient();
+		//model.addAttribute("lr", lr);
+		//model.addAttribute("lp", lp);
 		return "/rendezvous/list";
 	}
 	
@@ -49,8 +49,8 @@ public class RendezvousController {
     @GetMapping("/add")
     public String addGetRdv(Model model) {
         model.addAttribute("message", "Ajouter un rendez vous");
-        List<PatientEntity> lp = ps.getAllPatient();
-        model.addAttribute("lp", lp);
+        //List<PatientEntity> lp = ps.getAllPatient();
+        //model.addAttribute("lp", lp);
         return "patient/add_edit";
     }
 	
@@ -75,7 +75,7 @@ public class RendezvousController {
 	    public String edit( Model model , @PathVariable int id ){
 	        try{
 	            model.addAttribute( "rdv" , rs.getRdvById(id) );
-	            model.addAttribute("lp", ps.getAllPatient() );
+	            //model.addAttribute("lp", ps.getAllPatient() );
 	            
 	            return "rendezvous/add_edit";
 	        }catch ( Exception e ){
